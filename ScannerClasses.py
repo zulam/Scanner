@@ -3,6 +3,7 @@ import time
 from Robinhood import Robinhood
 from alpha_vantage.timeseries import TimeSeries
 import getpass
+import config
 
 class TimeManager:
     log_time = str(datetime.datetime.now())
@@ -155,12 +156,6 @@ class Stock:
 
 class Trader:
     my_trader = Robinhood()
-    username = raw_input("Please enter the username: ")
-    password = ""
-    try: 
-        password = getpass.getpass() 
-    except Exception as error: 
-        print('ERROR', error) 
-    else: 
-        print('Password entered:', password) 
+    username = config.config["username"]
+    password = config.config["password"]
     logged_in = my_trader.login(username=username, password=password)

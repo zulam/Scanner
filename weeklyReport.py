@@ -4,6 +4,7 @@ from ScannerClasses import Trader
 import random
 import smtplib
 import getpass
+import config
 
 # initiate objects used for logic
 message = "Stocks to buy: \n\n Ticker | Ratio \n __________________\n"
@@ -37,15 +38,9 @@ for ticker in company_list:
 with open(time_manager.log_file_name, 'a') as log_file:
     port = 587
     smtp_server = "smtp.gmail.com"
-    receiver_email = raw_input("Please enter the receiving email address: ")
-    sender_email = raw_input("Please enter the sending email address: ")
-    password = ""
-    try: 
-        password = getpass.getpass() 
-    except Exception as error: 
-        print('ERROR', error) 
-    else: 
-        print('Password entered:', password) 
+    receiver_email = config.config["receiver"]
+    sender_email =  config.config["username"]
+    password = config.config["password"]
     for ticker, ratio in stocks_to_buy.items():
         message += str(ticker) + " : " + str(ratio) + "\n"
     try:
